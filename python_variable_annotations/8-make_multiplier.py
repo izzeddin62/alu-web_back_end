@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
+"""make_multiplier function"""
 
+from typing import Callable
 
-def make_multiplier(multiplier: float) -> callable:
+def make_multiplier(multiplier: float) -> Callable:
     """make_multiplier function"""
 
 
