@@ -11,5 +11,5 @@ def index_range(page, page_size):
     if (page == 1):
         return (0, page_size)
     start = (page - 1) * page_size
-    end = start + page_size;
+    end = start + page_size
     return (start, end)
