@@ -29,7 +29,7 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
     handler = logging.StreamHandler()
     handler.setFormatter(RedactingFormatter(PII_FIELDS))
-
+    logger.addHandler(handler)
     return logger
 
 
@@ -65,3 +65,21 @@ class RedactingFormatter(logging.Formatter):
         return filter_datum(self.fields, self.REDACTION,
                             super(RedactingFormatter, self).format(record),
                             self.SEPARATOR)
+
+
+def main():
+    """main def"""
+    db = get_db()
+    cursor = db.cursor()
+    logger = get_logger()
+    cursor.execute("SELECT * FROM users;")
+    for row in cursor:
+        msg = f"name={row[0]}; email={row[1]}; phone={row[2]}; \
+            ssn={row[3]}; password={row[4]}; ip={row[5]}; last_login={row[6]}; \
+                user_agent={row[7]};"
+        logger.info(msg)
+    cursor.close()
+    db.close()
+
+if __name__ == "__main__":
+    main()
