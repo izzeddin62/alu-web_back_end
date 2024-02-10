@@ -72,13 +72,13 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """ Tear down class """
         cls.get_patcher.stop()
 
-    # def test_public_repos(self):
-    #     """ Test public repos """
-    #     org = GithubOrgClient("test")
-    #     repos = org.public_repos()
-    #     payload = self.repos_payload
-    #     self.assertEqual(repos, self.expected_repos)
-    #     self.assertEqual(payload, self.repos_payload)
+    def test_public_repos(self):
+        """ Test public repos """
+        org = GithubOrgClient("test")
+        repos = org.public_repos()
+        payload = self.repos_payload
+        self.assertEqual(repos, self.expected_repos)
+        self.assertEqual(payload, self.repos_payload)
 
 
 if __name__ == '__main__':
