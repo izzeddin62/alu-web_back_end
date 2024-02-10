@@ -2,10 +2,11 @@
 """ Test for client.py """
 
 import unittest
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
 from unittest.mock import patch
 import requests
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -51,6 +52,34 @@ class TestGithubOrgClient(unittest.TestCase):
         """ Test license """
         has_license = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(has_license, has)
+
+
+@parameterized_class(('org_payload', 'repos_payload', 'expected_repos'),
+                     TEST_PAYLOAD,)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ Test integration """
+
+    @classmethod
+    def setUpClass(cls):
+        """ Setup class """
+        org = cls.org_payload
+        repos = cls.repos_payload
+        cls.get_patcher = patch('client.get_json')
+        cls.mock_get = cls.get_patcher.start()
+        cls.mock_get.side_effect = [org, repos]
+
+    @classmethod
+    def tearDownClass(cls):
+        """ Tear down class """
+        cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        """ Test public repos """
+        org = GithubOrgClient("test")
+        repos = org.public_repos()
+        payload = self.repos_payload
+        self.assertEqual(repos, self.expected_repos)
+        self.assertEqual(payload, self.repos_payload)
 
 
 if __name__ == '__main__':
