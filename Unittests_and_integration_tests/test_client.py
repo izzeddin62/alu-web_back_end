@@ -58,19 +58,19 @@ class TestGithubOrgClient(unittest.TestCase):
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """ Test integration """
 
-    # @classmethod
-    # def setUpClass(cls):
-    #     """ Setup class """
-    #     org = cls.org_payload
-    #     repos = cls.repos_payload
-    #     cls.get_patcher = patch('client.get_json')
-    #     cls.mock_get = cls.get_patcher.start()
-    #     cls.mock_get.side_effect = [org, repos]
+    @classmethod
+    def setUpClass(cls):
+        """ Setup class """
+        org = TEST_PAYLOAD[0][0]
+        repos = TEST_PAYLOAD[0][1]
+        cls.get_patcher = patch('client.get_json')
+        cls.mock_get = cls.get_patcher.start()
+        cls.mock_get.side_effect = [org, repos]
 
-    # @classmethod
-    # def tearDownClass(cls):
-    #     """ Tear down class """
-    #     cls.get_patcher.stop()
+    @classmethod
+    def tearDownClass(cls):
+        """ Tear down class """
+        cls.get_patcher.stop()
 
     # def test_public_repos(self):
     #     """ Test public repos """
