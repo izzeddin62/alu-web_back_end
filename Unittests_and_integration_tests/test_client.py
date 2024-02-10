@@ -4,7 +4,7 @@
 import unittest
 from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 import requests
 from fixtures import TEST_PAYLOAD
 
@@ -63,9 +63,18 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """ Setup class """
         org = TEST_PAYLOAD[0][0]
         repos = TEST_PAYLOAD[0][1]
-        cls.get_patcher = patch('client.get_json')
-        cls.mock_get = cls.get_patcher.start()
-        cls.mock_get.side_effect = [org, repos]
+        org_mock = Mock()
+        org_mock.json = Mock(return_value=org)
+        cls.org_mock = org_mock
+        repos_mock = Mock()
+        repos_mock.json = Mock(return_value=repos)
+        cls.repos_mock = repos_mock
+
+        cls.get_patcher = patch('requests.get')
+        cls.get = cls.get_patcher.start()
+
+        options = {cls.org_payload["repos_url"]: repos_mock}
+        cls.get.side_effect = lambda y: options.get(y, org_mock)
 
     @classmethod
     def tearDownClass(cls):
