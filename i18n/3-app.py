@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Basic Flask app"""
+"""Basic Flask app that implements i18n and internationalization"""
 
 from flask import Flask, render_template, request
 from flask_babel import Babel, _
@@ -17,18 +17,16 @@ class Config:
 app.config.from_object(Config)
 babel = Babel(app)
 
+
 @babel.localeselector
 def get_locale():
-    """Get locale"""
+    """Get locale for your application"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
-
-
-
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home():
-    """Home page"""
+    """Home page for your application"""
     return render_template('3-index.html')
 
 
