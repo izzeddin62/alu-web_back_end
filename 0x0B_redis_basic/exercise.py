@@ -50,7 +50,6 @@ def replay(func):
     """Displays a history of calls"""
 
     cache = func.__self__
-    print(f"{func.__qualname__}")
     red = cache._redis
     call_inputs = func.__qualname__ + ":inputs"
     call_outputs = func.__qualname__ + ":outputs"
