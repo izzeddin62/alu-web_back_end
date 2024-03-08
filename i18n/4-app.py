@@ -32,6 +32,5 @@ def home():
     """Home page for your application"""
     return render_template('3-index.html')
 
-
 if __name__ == "__main__":
     app.run()
