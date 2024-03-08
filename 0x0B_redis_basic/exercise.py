@@ -22,12 +22,12 @@ def call_history(method: Callable) -> Callable:
     """save the call history of different function call"""
 
     @functools.wraps(method)
-    def wrapper(*args):
+    def wrapper(self, data):
         input_key = f"{method.__qualname__}:inputs"
         output_key = f"{method.__qualname__}:outputs"
-        args[0]._redis.rpush(input_key, str(args[1:]))
-        output = method(*args);
-        args[0]._redis.rpush(output_key, output)
+        self._redis.rpush(input_key, str(data))
+        output = method(self, data);
+        self._redis.rpush(output_key, output)
     
     return wrapper
 
