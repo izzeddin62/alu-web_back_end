@@ -12,10 +12,9 @@ class Cache:
         """initialize redis instance"""
         self._redis = redis.Redis()
         self._redis.flushdb()
-    
-    def store(self, data: Union[int, float, str, bytes]) -> str:
+
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """generate random key and store data in redis"""
         key: str = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
-  
