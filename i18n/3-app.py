@@ -16,8 +16,6 @@ class Config:
 
 app.config.from_object(Config)
 
-babel = Babel()
-
 
 
 
@@ -25,13 +23,14 @@ def get_locale():
     """Get locale"""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-babel.init_app(app, locale_selector=get_locale)
+babel = Babel(app, locale_selector=get_locale)
+
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def home():
     """Home page"""
-    return render_template('2-index.html')
+    return render_template('3-index.html')
 
 
 if __name__ == "__main__":
