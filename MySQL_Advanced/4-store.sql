@@ -1,3 +1,4 @@
+-- update quantity of items in stock after an order is placed
 CREATE TRIGGER update_quantity_insert BEFORE INSERT ON orders
 FOR EACH ROW
 BEGIN
