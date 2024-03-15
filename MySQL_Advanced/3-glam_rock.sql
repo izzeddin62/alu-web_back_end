@@ -4,7 +4,7 @@ SELECT
     CASE
         WHEN split IS NULL THEN 2020 - COALESCE(formed, YEAR(curdate()))
         ELSE COALESCE(split, YEAR(curdate())) - COALESCE(formed, YEAR(curdate()))
-    END AS time_together
+    END AS lifespan
 FROM metal_bands
 WHERE style LIKE '%Glam rock%'
-ORDER BY time_together DESC;
+ORDER BY lifespan DESC;
