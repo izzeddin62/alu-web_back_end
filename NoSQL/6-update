@@ -1,5 +1,5 @@
 // update school
-db.school.update({
+db.school.updateMany({
     name: "Holberton school"
 },
 {
