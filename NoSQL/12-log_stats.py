@@ -1,41 +1,27 @@
 #!/usr/bin/env python3
 """ log stats """
-# from pymongo import MongoClient
+from pymongo import MongoClient
 
-# def main():
-#     """ log stats """
-#     print("working")
-#     client = MongoClient('mongodb://127.0.0.1:27017')
-#     logs = client.logs.nginx
-#     num_docs = logs.count_documents({})
-#     docs = list(logs.find())
-#     print(f"{num_docs} logs")
-#     print("Methods:")
-#     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-#     for method in methods:
-#         num_method = logs.count_documents({"method": method})
-#         print(f"\tmethod {method}: {num_method}")
+def main():
+    try:
+        client = MongoClient('mongodb://127.0.0.1:27017')
+        db = client.logs
+        logs = db.nginx
 
-#     filter_path = {"method": "GET", "path": "/status"}
-#     num_path = logs.count_documents(filter_path)
-#     print(f"{num_path} status check")
+        num_logs = logs.count_documents({})
+        print(f"{num_logs} logs")
+        print("Methods:")
+        methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+        for method in methods:
+            num_method = logs.count_documents({"method": method})
+            print(f"\tmethod {method}: {num_method}")
+
+        num_status_check = logs.count_documents({"method": "GET", "path": "/status"})
+        print(f"{num_status_check} status check")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
 if __name__ == "__main__":
-    print("working")
-    # main()
-#     client = MongoClient('mongodb://127.0.0.1:27017')
-#     logs = client.logs.nginx
-#     num_docs = logs.count_documents({})
-#     docs = list(logs.find())
-#     print(f"{num_docs} logs")
-#     print("Methods:")
-#     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-#     for method in methods:
-#         num_method = logs.count_documents({"method": method})
-#         print(f"\tmethod {method}: {num_method}")
-
-#     filter_path = {"method": "GET", "path": "/status"}
-#     num_path = logs.count_documents(filter_path)
-#     print(f"{num_path} status check")
-
+    main()
