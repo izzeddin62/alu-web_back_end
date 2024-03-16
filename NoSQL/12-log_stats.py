@@ -3,6 +3,7 @@
 from pymongo import MongoClient
 
 def main():
+    """ log stats"""
     try:
         client = MongoClient('mongodb://127.0.0.1:27017')
         db = client.logs
