@@ -1,20 +1,35 @@
 #!/usr/bin/env python3
-""" 12-log_stats.py"""
+"""Log stats - new version"""
 from pymongo import MongoClient
 
-def log_stats():
-    """ function that provides some stats about Nginx logs stored in MongoDB"""
-    client = MongoClient('mongodb://127.0.0.1:27017')
-    nginx_collection = client.logs.nginx
-    total_logs = nginx_collection.count_documents({})
-    print(f"{total_logs} logs")
+
+METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
+PIPE = [{"$group": {"_id": "$ip", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}}, {"$limit": 10}]
+
+
+def log_stats(mongo_collection, option=None):
+    """Improved 12-log_stats.py"""
+    loggers = {}
+    if option:
+        value = mongo_collection.count_documents(
+            {"method": {"$regex": option}})
+        print(f"\tmethod {option}: {value}")
+        return
+
+    result = mongo_collection.count_documents(loggers)
+    print(f"{result} logs")
     print("Methods:")
-    methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-    for method in methods:
-        count = nginx_collection.count_documents({"method": method})
-        print(f"    method {method}: {count}")
-    status_check = nginx_collection.count_documents({"method": "GET", "path": "/status"})
+    for method in METHODS:
+        log_stats(nginx_collection, method)
+    status_check = mongo_collection.count_documents({"path": "/status"})
     print(f"{status_check} status check")
+    print("IPs:")
+
+    for ip in mongo_collection.aggregate(PIPE):
+        print(f"\t{ip.get('_id')}: {ip.get('count')}")
+
 
 if __name__ == "__main__":
-    log_stats()
+    nginx_collection = MongoClient('mongodb://127.0.0.1:27017').logs.nginx
+    log_stats(nginx_collection)
