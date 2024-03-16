@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 
 def get_logs(logs):
+    """get logs from collection"""
     num_docs = logs.count_documents({})
     docs = list(logs.find())
     print(f"{num_docs} logs")
