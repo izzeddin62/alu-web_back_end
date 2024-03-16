@@ -3,6 +3,7 @@
 from pymongo import MongoClient
 
 def main():
+    """ log stats """
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs = client.logs.nginx
     num_docs = logs.count_documents({})
