@@ -14,3 +14,7 @@ if __name__ == "__main__":
         num_method = logs.count_documents({"method": method})
         print(f"\tmethod {method}: {num_method}")
 
+    filter_path = {"method": "GET", "path": "/status"}
+    num_path = logs.count_documents(filter_path)
+    print(f"{num_path} status check")
+
