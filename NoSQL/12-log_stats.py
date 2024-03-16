@@ -19,9 +19,9 @@ def main():
     num_path = logs.count_documents(filter_path)
     print(f"{num_path} status check")
 
-main()
-# if __name__ == "__main__":
-#     main()
+
+if __name__ == "__main__":
+    main()
 #     client = MongoClient('mongodb://127.0.0.1:27017')
 #     logs = client.logs.nginx
 #     num_docs = logs.count_documents({})
