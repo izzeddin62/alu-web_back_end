@@ -4,6 +4,7 @@ from pymongo import MongoClient
 
 def main():
     """ log stats """
+    print("working")
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs = client.logs.nginx
     num_docs = logs.count_documents({})
@@ -21,6 +22,7 @@ def main():
 
 
 if __name__ == "__main__":
+    print("working")
     main()
 #     client = MongoClient('mongodb://127.0.0.1:27017')
 #     logs = client.logs.nginx
