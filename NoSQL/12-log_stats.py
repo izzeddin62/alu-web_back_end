@@ -10,18 +10,18 @@ def main():
         logs = db.nginx
 
         num_logs = logs.count_documents({})
-        print(f"{num_logs} logs")
+        print("{} logs".format(num_logs))
         print("Methods:")
         methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
         for method in methods:
             num_method = logs.count_documents({"method": method})
-            print(f"\tmethod {method}: {num_method}")
+            print("\tmethod {}: {}".format(method, num_method))
 
         num_status_check = logs.count_documents({"method": "GET", "path": "/status"})
-        print(f"{num_status_check} status check")
+        print("{} status check".format(num_status_check))
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print("An error occurred: {}".format(e))
 
 
 if __name__ == "__main__":
