@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 def main():
     """ log stats"""
-    try:
+    with MongoClient() as client:
         client = MongoClient()
         db = client.logs
         logs = db.nginx
@@ -20,8 +20,7 @@ def main():
         num_status_check = logs.count_documents({"method": "GET", "path": "/status"})
         print("{} status check".format(num_status_check))
 
-    except Exception as e:
-        print("An error occurred: {}".format(e))
+
 
 
 if __name__ == "__main__":
