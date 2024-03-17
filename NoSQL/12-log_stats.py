@@ -6,12 +6,12 @@ def main(collection, options=None):
     """ log stats"""
     
 
-    num_logs = collection.count_documents({})
+    num_logs = collection.count({})
     methods = ["GET", "POST", "PUT", "PATCH", "DELETE"]
     results = [0, 0, 0, 0, 0]
-    num_status_check = collection.count_documents({"method": "GET", "path": "/status"})
+    num_status_check = collection.count({"method": "GET", "path": "/status"})
     for method in methods:
-        num_method = collection.count_documents({"method": method})
+        num_method = collection.count({"method": method})
         results[methods.index(method)] = num_method
     
     print("{} logs".format(num_logs))
