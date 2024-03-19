@@ -7,4 +7,5 @@ export default function guardrail(mathFunction) {
   } finally {
     queque.push('Guardrail was processed');
   }
+  return queque;
 }
