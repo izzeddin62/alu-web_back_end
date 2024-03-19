@@ -6,6 +6,6 @@ export default async function handleProfileSignup(firstName, lastName, filename)
   return data
     .map((item) => ({
       status: item.status,
-      value: item.reason ? item.reason.message : item.value,
+      value: item.reason || item.value,
     }));
 }
