@@ -28,4 +28,8 @@ export default class Pricing {
   static convertPrice(amount, conversionRate) {
     return amount * conversionRate;
   }
+
+  displayFullPrice() {
+    return `${this.amount} ${this.currency.displayFullCurrency()}`;
+  }
 }
