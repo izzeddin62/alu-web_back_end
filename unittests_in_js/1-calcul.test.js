@@ -36,6 +36,6 @@ describe("calculate | divide", () => {
     });
 
     it("should throw an error if the second number is rounded to zero", () => {
-        assert.throws(() => calculateNumber('DIVIDE', 5, 0.1), Error)
+        assert.strictEqual(calculateNumber('DIVIDE', 5, 0.1), "Error")
     })
 })
