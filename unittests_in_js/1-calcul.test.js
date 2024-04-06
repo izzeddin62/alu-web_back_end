@@ -21,8 +21,8 @@ describe("calculate | subtract", () => {
     });
 
     it("should subtract the numbers(their ceiling) when the decimal part is bigger or equal to 5", () => {
-        assert.strictEqual(calculateNumber('SUBTRACT', 1.7, 3.8), 2);
-        assert.strictEqual(calculateNumber('SUBTRACT', 1.9, 7.9), 6);
+        assert.strictEqual(calculateNumber('SUBTRACT', 3.7, 1.8), 2);
+        assert.strictEqual(calculateNumber('SUBTRACT', 7.9, 1.9), 6);
     })
 })
 
