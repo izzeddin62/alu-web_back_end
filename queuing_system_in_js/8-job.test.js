@@ -33,4 +33,15 @@ describe('createPushNotificationsJobs', () => {
     it('should throw an error if the jobs parameter is not an array', () => {
         expect(() => createPushNotificationsJobs('not an array', queue)).to.throw('Jobs is not an array');
     });
+
+    it("should create a job with the right type", () => {
+        const list = [
+            {
+                phoneNumber: '4153518780',
+                message: 'This is the code 1234 to verify your account'
+            }
+        ];
+        createPushNotificationsJobs(list, queue);
+        expect(queue.testMode.jobs[0].type).to.equal('push_notification_code_3');
+    });
 })
