@@ -8,24 +8,25 @@ const queue = createQueue({
     }
 });
 
-const job = {
+const data = {
     phoneNumber: '0173943892',
     message: 'this is a message'
 };
 
+const job = queue.create('push_notification_code', data);
 
-queue.process('push_notification_code');
 
-queue.create('push_notification_code', job).save();
 
-queue.on('job enqueue', (id) => {
-    console.log(`Notification job created: ${id}`);
+job.on('enqueue', () => {
+    console.log(`Notification job created: ${job.id}`);
 });
 
-queue.on('job complete', (id) => {
-    console.log(`Notification job ${id} completed`);
+job.on('complete', () => {
+    console.log(`Notification job completed`);
 });
 
-queue.on('job failed', (id, result) => {
+job.on('ailed attempt', () => {
     console.log('Notification job failed');
 });
+
+job.save()
