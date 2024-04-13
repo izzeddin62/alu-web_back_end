@@ -17,7 +17,7 @@ function countStudents(path) {
         const studentNames = students.map((student) => student[0]);
         console.log(`Number of students in ${field}: ${students.length}. List: ${studentNames.join(', ')}`);
       });
-      resolve();
+      resolve(data);
     });
   });
 }
