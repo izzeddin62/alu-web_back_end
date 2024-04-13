@@ -20,6 +20,8 @@ const readDb = async (path) => new Promise((resolve, reject) => {
 });
 
 app.get('/students', async (req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
   let returnText = 'This is the list of our students\n';
   res.write(returnText);
   try {
