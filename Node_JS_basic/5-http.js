@@ -16,12 +16,15 @@ const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
     res.statusCode = 200;
     res.write('Hello Holberton School!');
+    res.end();
   } else if (req.url === '/students') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
+    let returnText = 'This is the list of our students\n';
+    res.write(returnText);
     try {
       const data = await readDb(process.argv[2]);
-      let returnText = 'This is the list of our students\n';
+
       const lines = data.toString().split('\n').filter((line) => line.length > 0).slice(1);
       const fields = lines.map((line) => line.split(','));
       const fieldNames = fields.map((field) => field[3]).flat();
@@ -37,12 +40,12 @@ const app = http.createServer(async (req, res) => {
         returnText += `Number of students in ${field}: ${students.length}. List: ${studentNames.join(', ')}\n`;
       });
       res.write(returnText);
+      res.end();
     } catch (error) {
       res.statusCode = 404;
-      res.write('Cannot load the database');
+      res.end('Cannot load the database');
     }
   }
-  res.end();
 });
 
 app.listen(1245);
