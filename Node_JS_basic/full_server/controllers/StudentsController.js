@@ -21,7 +21,7 @@ export default class StudentsController {
         }
         returnText += `Number of students in ${field}: ${students.length}. List: ${studentNames.join(', ')}\n`;
       });
-      res.status(500).end(returnText);
+      res.status(200).end(returnText);
     } catch (error) {
       res.status(404).end('Cannot load the database');
     }
