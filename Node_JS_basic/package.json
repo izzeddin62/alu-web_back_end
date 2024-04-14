@@ -7,8 +7,9 @@
       "lint": "eslint",
       "check-lint": "npm run lint [0-9]*.js",
       "test": "mocha --require babel-register --exit",
-      "dev": "nodemon --exec babel-node --presets babel-preset-env ./server.js ./database.csv",
-      "full-test": "npm run check-lint && npm run test"
+      "dev": "nodemon --exec babel-node --presets babel-preset-env ./full_server/server.js ./database.csv",
+      "full-test": "npm run check-lint && npm run test",
+      "local": "babel-node --presets babel-preset-env"
     },
     "author": "",
     "license": "ISC",
