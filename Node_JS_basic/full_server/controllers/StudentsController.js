@@ -11,7 +11,6 @@ export default class StudentsController {
       const fields = lines.map((line) => line.split(','));
       const fieldNames = fields.map((field) => field[3]).flat();
       const uniqueFieldNames = [...new Set(fieldNames)];
-      returnText += `Number of students: ${fields.length}\n`;
       uniqueFieldNames.forEach((field, index) => {
         const students = fields.filter((student) => student[3] === field);
         const studentNames = students.map((student) => student[0]);
