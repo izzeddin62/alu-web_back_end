@@ -3,7 +3,7 @@ import readDatabase from '../utils';
 export default class StudentsController {
   static async getAllStudents(req, res) {
     try {
-      const path = process.argv[2] || 'database.csv';
+      const path = process.argv[2];
       const data = await readDatabase(path);
 
       let returnText = 'This is the list of our students\n';
@@ -31,7 +31,7 @@ export default class StudentsController {
     if ((major !== 'CS') && (major !== 'SWE')) {
       return res.status(500).end('Major parameter must be CS or SWE');
     }
-    const path = process.argv[2] || 'database.csv';
+    const path = process.argv[2];
     const data = await readDatabase(path);
     const lines = data.toString().split('\n').filter((line) => line.length > 0).slice(1);
     const majorStudents = lines.filter((line) => line.split(',')[3] === major);
